@@ -1,0 +1,82 @@
+<resources>
+    <string name="app_name">D2Runewords</string>
+    <string-array name="version">
+        <item>所有版本</item>
+        <item>单机1.*</item>
+        <item>天梯1.*</item>
+        <item>重制版2.+</item>
+    </string-array>
+    <string-array name="category">
+        <item>所有部位</item>
+        <item>头盔</item>
+        <item>盔甲</item>
+        <item>盾牌</item>
+        <item>武器</item>
+        <item>近战武器</item>
+        <item>棍棒</item>
+        <item>铁锤</item>
+        <item>钉头锤</item>
+        <item>权杖</item>
+        <item>刀剑</item>
+        <item>法杖</item>
+        <item>弓/十字弓</item>
+        <item>斧头</item>
+        <item>手杖</item>
+        <item>锤类</item>
+        <item>爪类</item>
+        <item>匕首</item>
+        <item>长柄武器</item>
+        <item>长矛</item>
+        <item>圣骑士盾牌</item>
+    </string-array>
+    <string-array name="slot">
+         <item>所有孔数</item>
+         <item>2</item>
+         <item>3</item>
+         <item>4</item>
+         <item>5</item>
+         <item>6</item>
+    </string-array>
+    <string-array name="rune">
+         <item>所有符文</item>
+         <item>01 艾尔</item>
+         <item>02 艾德</item>
+         <item>03 特尔</item>
+         <item>04 那夫</item>
+         <item>05 爱斯</item>
+         <item>06 伊斯</item>
+         <item>07 塔尔</item>
+         <item>08 拉尔</item>
+         <item>09 欧特</item>
+         <item>10 书尔</item>
+         <item>11 安姆</item>
+         <item>12 索尔</item>
+         <item>13 夏</item>
+         <item>14 多尔</item>
+         <item>15 海尔</item>
+         <item>16 破</item>
+         <item>17 鲁姆</item>
+         <item>18 科</item>
+         <item>19 法尔</item>
+         <item>20 蓝姆</item>
+         <item>21 普尔</item>
+         <item>22 乌姆</item>
+         <item>23 马尔</item>
+         <item>24 伊斯特</item>
+         <item>25 古尔</item>
+         <item>26 维克斯</item>
+         <item>27 欧姆</item>
+         <item>28 罗</item>
+         <item>29 瑟</item>
+         <item>30 贝</item>
+         <item>31 乔</item>
+         <item>32 查姆</item>
+         <item>33 萨德</item>
+    </string-array>
+    <string name="rw_name">name</string>
+    <string name="rw_ver">ver</string>
+    <string name="rw_equip">equip</string>
+    <string name="rw_runes">runes</string>
+    <string name="rw_level">level</string>
+    <string name="rw_effect">effect</string>
+</resources>
