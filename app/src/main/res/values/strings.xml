@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">D2Runewords</string>
+    <string name="rune">符文</string>
+    <string name="runeword">符文之语</string>
+    <string name="item">装备</string>
     <string-array name="version">
         <item>所有版本</item>
         <item>单机1.*</item>
@@ -30,48 +33,48 @@
         <item>圣骑士盾牌</item>
     </string-array>
     <string-array name="slot">
-         <item>所有孔数</item>
-         <item>2</item>
-         <item>3</item>
-         <item>4</item>
-         <item>5</item>
-         <item>6</item>
+        <item>所有孔数</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
     </string-array>
     <string-array name="rune">
-         <item>所有符文</item>
-         <item>01 艾尔</item>
-         <item>02 艾德</item>
-         <item>03 特尔</item>
-         <item>04 那夫</item>
-         <item>05 爱斯</item>
-         <item>06 伊斯</item>
-         <item>07 塔尔</item>
-         <item>08 拉尔</item>
-         <item>09 欧特</item>
-         <item>10 书尔</item>
-         <item>11 安姆</item>
-         <item>12 索尔</item>
-         <item>13 夏</item>
-         <item>14 多尔</item>
-         <item>15 海尔</item>
-         <item>16 破</item>
-         <item>17 鲁姆</item>
-         <item>18 科</item>
-         <item>19 法尔</item>
-         <item>20 蓝姆</item>
-         <item>21 普尔</item>
-         <item>22 乌姆</item>
-         <item>23 马尔</item>
-         <item>24 伊斯特</item>
-         <item>25 古尔</item>
-         <item>26 维克斯</item>
-         <item>27 欧姆</item>
-         <item>28 罗</item>
-         <item>29 瑟</item>
-         <item>30 贝</item>
-         <item>31 乔</item>
-         <item>32 查姆</item>
-         <item>33 萨德</item>
+        <item>所有符文</item>
+        <item>01 艾尔</item>
+        <item>02 艾德</item>
+        <item>03 特尔</item>
+        <item>04 那夫</item>
+        <item>05 爱斯</item>
+        <item>06 伊斯</item>
+        <item>07 塔尔</item>
+        <item>08 拉尔</item>
+        <item>09 欧特</item>
+        <item>10 书尔</item>
+        <item>11 安姆</item>
+        <item>12 索尔</item>
+        <item>13 夏</item>
+        <item>14 多尔</item>
+        <item>15 海尔</item>
+        <item>16 破</item>
+        <item>17 鲁姆</item>
+        <item>18 科</item>
+        <item>19 法尔</item>
+        <item>20 蓝姆</item>
+        <item>21 普尔</item>
+        <item>22 乌姆</item>
+        <item>23 马尔</item>
+        <item>24 伊斯特</item>
+        <item>25 古尔</item>
+        <item>26 维克斯</item>
+        <item>27 欧姆</item>
+        <item>28 罗</item>
+        <item>29 瑟</item>
+        <item>30 贝</item>
+        <item>31 乔</item>
+        <item>32 查姆</item>
+        <item>33 萨德</item>
     </string-array>
     <string name="rw_name">name</string>
     <string name="rw_ver">ver</string>
@@ -79,4 +82,53 @@
     <string name="rw_runes">runes</string>
     <string name="rw_level">level</string>
     <string name="rw_effect">effect</string>
+
+    <string name="class_axes">斧头</string>
+    <string name="class_swords">剑</string>
+    <string name="class_daggers">匕首</string>
+    <string name="class_maces">钉头锤</string>
+    <string name="class_bows">弓</string>
+    <string name="class_crossbows">十字弓</string>
+    <string name="class_javelins">标枪</string>
+    <string name="class_scepters">权杖</string>
+    <string name="class_staves">法杖</string>
+    <string name="class_wands">手杖</string>
+    <string name="class_spears">长矛</string>
+    <string name="class_polearms">长柄武器</string>
+    <string name="class_throwing_weapons">投掷类武器</string>
+    <string name="class_sorceress_orbs">法师天球</string>
+    <string name="class_assassin_katars">刺客爪</string>
+    <string name="class_amazon_weapons">亚马逊武器</string>
+    <string name="class_belts">腰带</string>
+    <string name="class_gloves">手套</string>
+    <string name="class_boots">鞋子</string>
+    <string name="class_helms">头盔</string>
+    <string name="class_body_armor">盔甲</string>
+    <string name="class_shields">盾牌</string>
+    <string name="class_circlets">头饰</string>
+    <string name="class_barbarian_helms">野蛮人头盔</string>
+    <string name="class_druid_pelts">德鲁伊头盔</string>
+    <string name="class_paladin_shields">圣骑士盾牌</string>
+    <string name="class_necromancer_shrunken_heads">防腐之首</string>
+
+    <string name="trans_class">class</string>
+    <string name="trans_showDetails">showDetails</string>
+
+    <string name="pp_onehanddamage">单手伤害</string>
+    <string name="pp_twohanddamage">双手伤害</string>
+    <string name="pp_throwingdmg">投掷伤害</string>
+    <string name="pp_maxstack">最大数量</string>
+    <string name="pp_defence">防御值</string>
+    <string name="pp_block">格挡</string>
+    <string name="pp_slot">格数</string>
+    <string name="pp_range">攻击距离</string>
+    <string name="pp_speed">速度</string>
+    <string name="pp_strrequired">需要力量</string>
+    <string name="pp_dexrequired">需要敏捷</string>
+    <string name="pp_durability">耐久度</string>
+    <string name="pp_reqlevel">需要等级</string>
+    <string name="pp_qlevel">品质等级</string>
+    <string name="pp_maxsockets">最大孔数</string>
+    <string name="pp_assassinkickingdamage">刺客伤害</string>
+    <string name="pp_smitedamage">重击伤害</string>
 </resources>

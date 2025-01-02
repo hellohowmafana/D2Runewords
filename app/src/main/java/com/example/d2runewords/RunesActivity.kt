@@ -56,12 +56,8 @@ class RunesActivity : AppCompatActivity() {
             text.layoutParams = pm
             text.text = String.format("#${rune.no} ${rune.name}")
             text.setTextColor(getColor(R.color.lightgray))
+            text.textSize = 12f
             im.addView(text)
         }
-    }
-
-    fun RunewordsClick(view: View) {
-        val intent =  Intent(this, RuneWordsActivity::class.java)
-        startActivity(intent)
     }
 }

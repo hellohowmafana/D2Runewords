@@ -9,4 +9,6 @@
     <color name="gold">#EBAC32</color>
     <color name="blue">#4A50AE</color>
     <color name="green">#1E8F3D</color>
+    <color name="red">#E45261</color>
+    <color name="transparent">#00000000</color>
 </resources>

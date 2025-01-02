@@ -1,5 +1,6 @@
 package com.example.d2runewords
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
@@ -21,6 +22,7 @@ import kotlin.math.ceil
 
 
 class DetailsActivity : AppCompatActivity() {
+    @SuppressLint("SetTextI18n", "DefaultLocale", "UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -78,7 +80,7 @@ class DetailsActivity : AppCompatActivity() {
                     text.text = "(${rr.no})${rr.name}"
                 }
                 text.setTextColor(getColor(R.color.lightgray))
-                text.textSize = 12f
+                text.textSize = 10f
                 unit.addView(text)
 
                 runesLayout.addView(unit)
@@ -88,15 +90,5 @@ class DetailsActivity : AppCompatActivity() {
         val equip = findViewById<TextView>(R.id.equipment);
         value = intent.getStringArrayExtra(getString(R.string.rw_equip))?.joinToString ("/") ?: ""
         equip.text = runesData?.size.toString() + "凹槽 " + value
-    }
-
-    fun RunesClick(view: View) {
-        intent = Intent(this, RunesActivity::class.java)
-        startActivity(intent)
-    }
-
-    fun RunewordsClick(view: View) {
-        intent = Intent(this, RuneWordsActivity::class.java)
-        startActivity(intent)
     }
 }

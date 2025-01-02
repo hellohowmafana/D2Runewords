@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -45,7 +46,7 @@
             android:layout_width="wrap_content"
             android:textColor="@color/dullgold"
             android:layout_marginBottom="9dp"
-            android:textSize="13sp"/>
+            android:textSize="12sp"/>
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -58,26 +59,8 @@
                 android:textColor="@color/blue"/>
         </ScrollView>
     </LinearLayout>
-    <LinearLayout
+    <com.example.d2runewords.Navigation
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/darkgray">
-        <TextView
-            android:layout_width="85dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:onClick="RunesClick"
-            android:text="符文"
-            android:gravity="center"
-            android:textColor="@color/lightgray"/>
-        <TextView
-            android:layout_width="85dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:onClick="RunewordsClick"
-            android:text="符文之语"
-            android:gravity="center"
-            android:textColor="@color/lightgray"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

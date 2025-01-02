@@ -15,25 +15,9 @@
         app:flexWrap="wrap"
         app:justifyContent="flex_start">
     </com.google.android.flexbox.FlexboxLayout>
-    <LinearLayout
+    <com.example.d2runewords.Navigation
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/darkgray">
-        <TextView
-            android:layout_width="85dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:text="符文"
-            android:gravity="center"
-            android:textColor="@color/palegold"/>
-        <TextView
-            android:layout_width="85dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:onClick="RunewordsClick"
-            android:text="符文之语"
-            android:gravity="center"
-            android:textColor="@color/lightgray"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        app:currentActivity="@string/rune"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

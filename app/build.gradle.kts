@@ -47,4 +47,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation ("com.google.android.flexbox:flexbox:3.0.0")
     implementation ("cn.aigestudio.wheelpicker:WheelPicker:1.1.3")
+    implementation(kotlin("reflect"))
 }
