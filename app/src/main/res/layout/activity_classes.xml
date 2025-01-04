@@ -104,7 +104,7 @@
                     <ImageButton
                         android:layout_width="72dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/bows_huntersbow"
+                        android:src="@drawable/bows_compositebow"
                         android:contentDescription="@string/class_bows"
                         android:scaleType="fitCenter"
                         android:background="@color/black"/>

@@ -2,11 +2,8 @@ package com.example.d2runewords
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ScrollView
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -29,14 +26,14 @@ class ClassesActivity : AppCompatActivity() {
             it.setOnClickListener{
                 val intent = Intent(this, ItemsActivity::class.java).apply {
                     putExtra(getString(R.string.trans_class), it.contentDescription)
-                    putExtra(getString(R.string.trans_showDetails), false)
+                    putExtra(getString(R.string.trans_show_details), false)
                 }
                 startActivity(intent)
             }
             it.setOnLongClickListener {
                 val intent = Intent(this, ItemsActivity::class.java).apply {
                     putExtra(getString(R.string.trans_class), it.contentDescription)
-                    putExtra(getString(R.string.trans_showDetails), true)
+                    putExtra(getString(R.string.trans_show_details), true)
                 }
                 startActivity(intent)
                 true
