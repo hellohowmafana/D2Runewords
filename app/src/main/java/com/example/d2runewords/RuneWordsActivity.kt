@@ -1,5 +1,6 @@
 package com.example.d2runewords
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -15,7 +16,6 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBar.LayoutParams
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.buildSpannedString
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
@@ -26,6 +26,7 @@ class RuneWordsActivity : AppCompatActivity() {
     var category = ""
     var slot = 0
     var rune = 0
+    var search = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,9 +37,18 @@ class RuneWordsActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         findViewById<EditText>(R.id.search).addTextChangedListener { showResults() }
+
         showResults()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if(intent.hasExtra(getString(R.string.trans_runeword_class))) {
+            apply(intent.getStringExtra(getString(R.string.trans_runeword_class)),
+                intent.getIntExtra(getString(R.string.trans_runeword_socket),0))
+        }
     }
 
     fun generate(
@@ -48,7 +58,7 @@ class RuneWordsActivity : AppCompatActivity() {
         rune: Int,
         search: String
     ): List<RuneWord> {
-        var data: MutableList<RuneWord> = mutableListOf()
+        var data = mutableListOf<RuneWord>()
         if (version == "1.*") {
             data.addAll(rgeneral)
             data.addAll(r110)
@@ -68,24 +78,22 @@ class RuneWordsActivity : AppCompatActivity() {
         }
 
         fun matchEquipment(eqip: String): Boolean {
-            var bodyArmor = arrayOf(
-                "近战武器",
+            val mace = arrayOf("锤类","钉头锤","铁锤")
+            val bodyArmor = arrayOf(
+                "近战武器") + mace + arrayOf(
                 "棍棒",
-                "铁锤",
-                "钉头锤",
                 "权杖",
                 "刀剑",
                 "法杖",
                 "斧头",
                 "手杖",
-                "锤类",
                 "爪类",
                 "匕首",
                 "长柄武器",
                 "长矛",
             )
-            var armor = bodyArmor + arrayOf("武器", "弓", "十字弓")
-            var shield = arrayOf("盾牌", "圣骑士盾牌")
+            val armor = bodyArmor + arrayOf("武器", "弓", "十字弓")
+            val shield = arrayOf("盾牌", "圣骑士盾牌")
 
             if (category == "武器")
                 return armor.contains(eqip);
@@ -93,8 +101,12 @@ class RuneWordsActivity : AppCompatActivity() {
                 return bodyArmor.contains(eqip);
             else if (category == "盾牌")
                 return shield.contains(eqip);
-            else if (arrayOf("头盔", "盔甲").contains(category))
+            else if (arrayOf("头盔", "盔甲", "圣骑士盾牌").contains(category))
                 return category == eqip;
+            else if (category == "锤类")
+                return mace.contains(eqip)
+            else if (mace.drop(1).contains(category))
+                return arrayOf("锤类", category).contains(eqip)
             else if (bodyArmor.drop(1).contains(category))
                 return arrayOf("武器", "近战武器", category).contains(eqip);
             else //"弓","十字弓"
@@ -114,7 +126,7 @@ class RuneWordsActivity : AppCompatActivity() {
         return resData
     }
 
-    fun shiftVersion(version: String, toInner: Boolean) : String
+    private fun shiftVersion(version: String, toInner: Boolean) : String
     {
         val array = resources.getStringArray(R.array.version)
         val dic = listOf(array[0] to "", array[1] to "1.*", array[2] to "ladder", array[3] to "2.+")
@@ -124,7 +136,7 @@ class RuneWordsActivity : AppCompatActivity() {
             return dic.find { p -> p.second == version }?.first ?: ""
     }
 
-    fun shiftCategory(category:String, toInner: Boolean) : String
+    private fun shiftCategory(category:String, toInner: Boolean) : String
     {
         if(toInner) {
             return if(category == "弓/十字弓") "弓"
@@ -136,11 +148,20 @@ class RuneWordsActivity : AppCompatActivity() {
         }
     }
 
-    fun showResults()
+    private fun shiftRune(rune:Int) : String
     {
-        var search = findViewById<EditText>(R.id.search).text.toString()
+        val r = runes.find { it.no == rune }
+        return if (r != null) "${r.no}#${r.name}" else ""
+    }
 
-        val data = generate(version,category,slot,rune,search)
+    private fun shiftRune(rune:String) : Int
+    {
+        return rune.substring(0, 2).toInt()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun generateView(data:List<RuneWord>)
+    {
         val res = findViewById<LinearLayout>(R.id.res)
         res.removeAllViews()
         if(data.isNotEmpty()) {
@@ -170,6 +191,46 @@ class RuneWordsActivity : AppCompatActivity() {
                 res.addView(text)
             }
         }
+    }
+
+    private fun showFilterText()
+    {
+        var text = ""
+        if (version.isNotBlank()) text += shiftVersion(version, false)
+        if (slot != 0) text += " " + slot.toString() + "孔"
+        if (category.isNotBlank()) text += shiftCategory(category, false)
+        if (rune != 0) text += " " + shiftRune(rune)
+        findViewById<TextView>(R.id.filters).text = text
+    }
+
+    private fun showResults()
+    {
+        showFilterText()
+        val data = generate(version,category,slot,rune,search)
+        generateView(data)
+    }
+
+    private fun apply(className: String?, socket: Int) {
+        category =
+            if (arrayOf("投掷类武器", "亚马逊武器").contains(className))
+                items.find { it.cnClass == className }?.Class ?: ""
+            else
+                when (className) {
+                    "剑" -> "刀剑"
+                    "弓" -> "弓/十字弓"
+                    "十字弓" -> "弓/十字弓"
+                    "刺客爪" -> "爪类"
+                    "头饰" -> "头盔"
+                    "野蛮人头盔" -> "盾牌"
+                    "德鲁伊头盔" -> "盾牌"
+                    "圣骑士盾牌" -> "圣骑士盾牌"
+                    "防腐之首" -> "盾牌"
+                    else -> className
+                } ?: ""
+
+        slot = socket
+
+        showResults()
     }
 
     fun FilterClick(view: View) {
@@ -203,61 +264,38 @@ class RuneWordsActivity : AppCompatActivity() {
 
         popup.contentView.findViewById<Button>(R.id.confirm_button).setOnClickListener(View.OnClickListener {
             _ -> run {
-            var txt_version = ""
-            var txt_category = ""
-            var txt_slot = ""
-            var txt_rune = ""
+                sel = popup.contentView.findViewById<WheelPicker>(R.id.version)
+                version = if(sel.currentItemPosition == 0) {
+                    ""
+                } else {
+                    shiftVersion(sel.data[sel.currentItemPosition].toString(), true)
+                }
 
-            sel = popup.contentView.findViewById<WheelPicker>(R.id.version)
-            if(sel.currentItemPosition == 0) {
-                txt_version = ""
-                version = ""
-            }
-            else {
-                txt_version = sel.data[sel.currentItemPosition].toString()
-                val array = resources.getStringArray(R.array.version)
-                val dic = mapOf(array[0] to "", array[1] to "1.*", array[2] to "ladder", array[3] to "2.+")
-                version = dic[txt_version].toString()
-            }
+                sel = popup.contentView.findViewById<WheelPicker>(R.id.category)
+                category = if(sel.currentItemPosition == 0) {
+                    ""
+                } else {
+                    shiftCategory(sel.data[sel.currentItemPosition].toString(), true)
+                }
 
-            sel = popup.contentView.findViewById<WheelPicker>(R.id.category)
-            if(sel.currentItemPosition == 0) {
-                txt_category = ""
-                category = ""
-            }
-            else {
-                txt_category = sel.data[sel.currentItemPosition].toString()
-                category = shiftCategory(txt_category, true)
-            }
+                sel = popup.contentView.findViewById<WheelPicker>(R.id.slot)
+                slot = if(sel.currentItemPosition == 0) {
+                    0
+                } else {
+                    sel.data[sel.currentItemPosition].toString().toInt()
+                }
 
-            sel = popup.contentView.findViewById<WheelPicker>(R.id.slot)
-            if(sel.currentItemPosition == 0) {
-                txt_slot = ""
-                slot = 0
-            }
-            else {
-                txt_slot = sel.data[sel.currentItemPosition].toString()
-                slot = txt_slot.toInt()
-            }
+                sel = popup.contentView.findViewById<WheelPicker>(R.id.rune)
+                rune = if(sel.currentItemPosition == 0) {
+                    0
+                } else {
+                    shiftRune(sel.data[sel.currentItemPosition].toString())
+                }
+                
+                search = findViewById<EditText>(R.id.search).text.toString()
 
-            sel = popup.contentView.findViewById<WheelPicker>(R.id.rune)
-            if(sel.currentItemPosition == 0) {
-                txt_rune = ""
-                rune = 0
-            }
-            else {
-                txt_rune = sel.data[sel.currentItemPosition].toString()
-                rune = txt_rune.substring(0, 2).toInt()
-            }
-
-            var text = ""
-            if (txt_version.isNotBlank()) text += txt_version
-            if (txt_slot.isNotBlank()) text += " " + txt_slot + "孔"
-            if (txt_category.isNotBlank()) text += txt_category
-            if (txt_rune.isNotBlank()) text += " " + txt_rune.replace(" ", "#")
-            findViewById<TextView>(R.id.filters).text = text
-            popup.dismiss()
-            showResults()
+                popup.dismiss()
+                showResults()
             }
         })
         popup.contentView.findViewById<Button>(R.id.cancel_button).setOnClickListener(View.OnClickListener { _ -> popup.dismiss() })

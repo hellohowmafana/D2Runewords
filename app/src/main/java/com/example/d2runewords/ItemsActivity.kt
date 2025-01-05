@@ -82,6 +82,19 @@ class ItemsActivity : AppCompatActivity() {
 
         innerLayout.addView(nameView)
 
+        if (!arrayOf("标枪", "法师天球", "腰带", "手套", "鞋子").contains(datum.cnClass)) {
+            innerLayout.setOnClickListener {
+                val intent = Intent(this, RuneWordsActivity::class.java).apply {
+                    putExtra(
+                        getString(R.string.trans_runeword_class),
+                        datum.Class ?: datum.cnClass
+                    )
+                    putExtra(getString(R.string.trans_runeword_socket), datum.MaxSocket)
+                }
+                startActivity(intent)
+            }
+        }
+
         val props = mutableListOf<Pair<String, Any>>().apply {
             if (datum.OneHandDmg != null) add(getString(R.string.pp_onehanddamage) to datum.OneHandDmg)
             if (datum.TwoHandDmg != null) add(getString(R.string.pp_twohanddamage) to datum.TwoHandDmg)
@@ -112,9 +125,9 @@ class ItemsActivity : AppCompatActivity() {
             }
             else secondText = prop.second.toString()
             val ppText = TextView(this).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                layoutParams = LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT,
                 ).apply { setPadding(itemTextPaddingHor,itemTextPaddingVer, itemTextPaddingHor,itemTextPaddingVer) }
                 textSize = itemTextSize
             }
@@ -194,7 +207,9 @@ class ItemsActivity : AppCompatActivity() {
         val data = items.filter { it.cnClass == className }
         val ix = data.indexOfFirst { it.cnName == itemName }
         val c = data.size / 3
-        val datum = arrayOf(data[ix], data[ix + c], data[ix + c * 2])
+        val datum = if(className == getString(R.string.class_circlets))
+            arrayOf(data[ix]) else
+            arrayOf(data[ix], data[ix + c], data[ix + c * 2])
 
         datum.forEach {
             val itemLayout = generateItemDetails(it)

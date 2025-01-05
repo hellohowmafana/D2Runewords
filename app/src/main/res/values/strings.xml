@@ -87,6 +87,7 @@
     <string name="class_swords">剑</string>
     <string name="class_daggers">匕首</string>
     <string name="class_maces">钉头锤</string>
+    <string name="class_hammers">铁锤</string>
     <string name="class_bows">弓</string>
     <string name="class_crossbows">十字弓</string>
     <string name="class_javelins">标枪</string>
@@ -115,6 +116,8 @@
     <string name="trans_show_details">show_details</string>
     <string name="trans_itemgroup_class">itemgroup_class</string>
     <string name="trans_itemgroup_name">itemgroup_name</string>
+    <string name="trans_runeword_class">runeword_class</string>
+    <string name="trans_runeword_socket">runeword_socket</string>
 
     <string name="pp_onehanddamage">单手伤害</string>
     <string name="pp_twohanddamage">双手伤害</string>

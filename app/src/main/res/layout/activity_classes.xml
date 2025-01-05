@@ -104,6 +104,24 @@
                     <ImageButton
                         android:layout_width="72dp"
                         android:layout_height="100dp"
+                        android:src="@drawable/hammers_great_maul"
+                        android:contentDescription="@string/class_hammers"
+                        android:scaleType="fitCenter"
+                        android:background="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/class_hammers"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:padding="3dp">
+                    <ImageButton
+                        android:layout_width="72dp"
+                        android:layout_height="100dp"
                         android:src="@drawable/bows_compositebow"
                         android:contentDescription="@string/class_bows"
                         android:scaleType="fitCenter"

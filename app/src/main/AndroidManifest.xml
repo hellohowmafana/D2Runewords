@@ -18,11 +18,11 @@
         <activity
             android:name=".ClassesActivity"
             android:exported="false"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTop" />
         <activity
             android:name=".RuneWordsActivity"
             android:exported="true"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +32,7 @@
         <activity
             android:name=".RunesActivity"
             android:exported="false"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTop" />
         <activity
             android:name=".DetailsActivity"
             android:exported="false" />
