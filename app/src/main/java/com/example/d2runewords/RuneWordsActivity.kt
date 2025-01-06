@@ -37,7 +37,10 @@ class RuneWordsActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        findViewById<EditText>(R.id.search).addTextChangedListener { showResults() }
+        findViewById<EditText>(R.id.search).addTextChangedListener {
+            search = findViewById<TextView>(R.id.search).text.toString()
+            showResults()
+        }
 
         showResults()
     }
@@ -49,16 +52,19 @@ class RuneWordsActivity : AppCompatActivity() {
             apply(intent.getStringExtra(getString(R.string.trans_runeword_class)),
                 intent.getIntExtra(getString(R.string.trans_runeword_socket),0))
         }
+        if (intent.hasExtra(getString(R.string.trans_rune))) {
+            apply(intent.getIntExtra(getString(R.string.trans_rune), 0))
+        }
     }
 
-    fun generate(
+    private fun generate(
         version: String,
         category: String,
         slot: Int,
         rune: Int,
         search: String
     ): List<RuneWord> {
-        var data = mutableListOf<RuneWord>()
+        val data = mutableListOf<RuneWord>()
         if (version == "1.*") {
             data.addAll(rgeneral)
             data.addAll(r110)
@@ -77,45 +83,9 @@ class RuneWordsActivity : AppCompatActivity() {
             data.addAll(r26)
         }
 
-        fun matchEquipment(eqip: String): Boolean {
-            val mace = arrayOf("锤类","钉头锤","铁锤")
-            val bodyArmor = arrayOf(
-                "近战武器") + mace + arrayOf(
-                "棍棒",
-                "权杖",
-                "刀剑",
-                "法杖",
-                "斧头",
-                "手杖",
-                "爪类",
-                "匕首",
-                "长柄武器",
-                "长矛",
-            )
-            val armor = bodyArmor + arrayOf("武器", "弓", "十字弓")
-            val shield = arrayOf("盾牌", "圣骑士盾牌")
-
-            if (category == "武器")
-                return armor.contains(eqip);
-            else if (category == "近战武器")
-                return bodyArmor.contains(eqip);
-            else if (category == "盾牌")
-                return shield.contains(eqip);
-            else if (arrayOf("头盔", "盔甲", "圣骑士盾牌").contains(category))
-                return category == eqip;
-            else if (category == "锤类")
-                return mace.contains(eqip)
-            else if (mace.drop(1).contains(category))
-                return arrayOf("锤类", category).contains(eqip)
-            else if (bodyArmor.drop(1).contains(category))
-                return arrayOf("武器", "近战武器", category).contains(eqip);
-            else //"弓","十字弓"
-                return arrayOf("弓", "十字弓", "武器").contains(eqip);
-        }
-
         val resData =
             data.filter { en ->
-                (category.isBlank() || en.equip.find { eq -> matchEquipment(eq) } != null) &&
+                (category.isBlank() || en.matchEquipment(category)) &&
                         (slot == 0 || en.slotNum == slot) &&
                         (rune == 0 || en.runes.contains(rune)) &&
                         (search.isBlank() || en.chnName.contains(search) || en.effect.contains(
@@ -210,13 +180,17 @@ class RuneWordsActivity : AppCompatActivity() {
         generateView(data)
     }
 
+    private fun apply(rune:Int) {
+        this.rune = rune
+        showResults()
+    }
+
     private fun apply(className: String?, socket: Int) {
         category =
             if (arrayOf("投掷类武器", "亚马逊武器").contains(className))
                 items.find { it.cnClass == className }?.Class ?: ""
             else
                 when (className) {
-                    "剑" -> "刀剑"
                     "弓" -> "弓/十字弓"
                     "十字弓" -> "弓/十字弓"
                     "刺客爪" -> "爪类"

@@ -16,6 +16,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlin.math.min
 
 class ItemsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +35,8 @@ class ItemsActivity : AppCompatActivity() {
         else if(intent.hasExtra(getString(R.string.trans_itemgroup_class)))
             generateViews(intent.getStringExtra(getString(R.string.trans_itemgroup_class)),
                 intent.getStringExtra(getString(R.string.trans_itemgroup_name)))
+        else if(intent.hasExtra(getString(R.string.trans_runeword)))
+            generateViews(intent.getStringExtra(getString(R.string.trans_runeword)))
     }
 
     private val itemPaddingHor = DimensionConverter.dp2px(14)
@@ -82,12 +85,13 @@ class ItemsActivity : AppCompatActivity() {
 
         innerLayout.addView(nameView)
 
-        if (!arrayOf("标枪", "法师天球", "腰带", "手套", "鞋子").contains(datum.cnClass)) {
+        val className = datum.Class?:datum.cnClass
+        if (!arrayOf("标枪", "法师天球", "腰带", "手套", "鞋子").contains(className)) {
             innerLayout.setOnClickListener {
                 val intent = Intent(this, RuneWordsActivity::class.java).apply {
                     putExtra(
                         getString(R.string.trans_runeword_class),
-                        datum.Class ?: datum.cnClass
+                        className
                     )
                     putExtra(getString(R.string.trans_runeword_socket), datum.MaxSocket)
                 }
@@ -120,8 +124,13 @@ class ItemsActivity : AppCompatActivity() {
             if(prop.second is Array<*>)
             {
                 val minmax = prop.second as Array<Int>
-                val ave = minmax.average()
-                secondText = "${minmax[0]}-${minmax[1]}(${if(ave % 1 == 0.0) ave.toInt() else ave})"
+                if(minmax[0] == minmax[1])
+                    secondText = minmax[0].toString()
+                else {
+                    val ave = minmax.average()
+                    secondText =
+                        "${minmax[0]}-${minmax[1]}(${if (ave % 1 == 0.0) ave.toInt() else ave})"
+                }
             }
             else secondText = prop.second.toString()
             val ppText = TextView(this).apply {
@@ -248,6 +257,24 @@ class ItemsActivity : AppCompatActivity() {
             grouped.forEach {
                 val itemLayout = generateGroupedItem(it)
                 findViewById<LinearLayout>(R.id.items).addView(itemLayout)
+            }
+        }
+    }
+
+    private fun generateViews(runeword : String?){
+        val rw = rgeneral.firstOrNull{it.chnName == runeword}?:
+        r110.firstOrNull{it.chnName == runeword}?:
+        r111.firstOrNull{it.chnName == runeword}?:
+        rladder110.firstOrNull{it.chnName == runeword}?:
+        r24.firstOrNull{it.chnName == runeword}?:
+        r26.firstOrNull{it.chnName == runeword}
+
+        if (rw != null) {
+            findViewById<TextView>(R.id.class_name).text = rw.chnName
+
+            val data = items.filter { rw.matchEquipment(it.Class?:it.cnClass) && if(it.MaxSocket != null) rw.slotNum <= it.MaxSocket else false }
+            data.forEach { val itemLayout = generateItemDetails(it)
+                    findViewById<LinearLayout>(R.id.items).addView(itemLayout)
             }
         }
     }

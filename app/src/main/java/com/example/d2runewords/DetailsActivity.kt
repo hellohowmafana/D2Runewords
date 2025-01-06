@@ -33,7 +33,8 @@ class DetailsActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<TextView>(R.id.name).text = intent.getStringExtra(getString(R.string.rw_name))
+        val rwName = intent.getStringExtra(getString(R.string.rw_name))
+        findViewById<TextView>(R.id.name).text = rwName
         var value = intent.getStringExtra(getString(R.string.rw_ver))?:""
         value = when(value){
             "general"->""
@@ -51,6 +52,11 @@ class DetailsActivity : AppCompatActivity() {
                 "<font color=\"#${getColor(R.color.white).toUInt().toString(16).padStart(8, '0').substring(2)}\">").
             replace(">","</font>").replace("|","<br>")
         effect.text = Html.fromHtml(value, Html.FROM_HTML_MODE_COMPACT)
+        effect.setOnClickListener {
+            val intent = Intent(this, ItemsActivity::class.java)
+            intent.putExtra(getString(R.string.trans_runeword), rwName)
+            startActivity(intent)
+        }
 
         val runesLayout = findViewById<LinearLayout>(R.id.runes)
         runesLayout.removeAllViews()

@@ -1,5 +1,6 @@
 package com.example.d2runewords
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -18,6 +19,7 @@ import androidx.core.view.setMargins
 import com.google.android.flexbox.FlexboxLayout
 
 class RunesActivity : AppCompatActivity() {
+    @SuppressLint("DefaultLocale", "UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -58,6 +60,12 @@ class RunesActivity : AppCompatActivity() {
             text.setTextColor(getColor(R.color.lightgray))
             text.textSize = 12f
             im.addView(text)
+            im.setOnClickListener {
+                val intent = Intent(this, RuneWordsActivity::class.java).apply {
+                    putExtra(getString(R.string.trans_rune), rune.no)
+                }
+                startActivity(intent)
+            }
         }
     }
 }

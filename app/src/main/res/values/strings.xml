@@ -20,7 +20,7 @@
         <item>铁锤</item>
         <item>钉头锤</item>
         <item>权杖</item>
-        <item>刀剑</item>
+        <item>剑</item>
         <item>法杖</item>
         <item>弓/十字弓</item>
         <item>斧头</item>
@@ -118,6 +118,9 @@
     <string name="trans_itemgroup_name">itemgroup_name</string>
     <string name="trans_runeword_class">runeword_class</string>
     <string name="trans_runeword_socket">runeword_socket</string>
+
+    <string name="trans_rune">rune</string>
+    <string name="trans_runeword">runeword</string>
 
     <string name="pp_onehanddamage">单手伤害</string>
     <string name="pp_twohanddamage">双手伤害</string>
